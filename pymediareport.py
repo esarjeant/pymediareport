@@ -29,12 +29,21 @@ def is_single_audio_only(metadata):
 
     return 1 == audio_stream_count
 
+def is_fullscreen(metadata):
+
+    for stream in metadata.streams:
+        if stream.is_video():
+            return stream.aspect_ratio() <= 1.339
+
+    return False
+
 parser = argparse.ArgumentParser(description='pyMediareport video file filter utility')
 parser.add_argument('path', metavar='directory', help='directory to check video files')
 parser.add_argument('--extension', dest='extension', action='store', default="m4v", help='extension to search; common ones include m4v and mpg')
 parser.add_argument('--recursive', dest='recursive', action='store_true', help='allow recursion into all sub-directories')
 parser.add_argument('--find_stereo_only', dest='find_stereo_only', action='store_true', help='filter results that have stereo only')
 parser.add_argument('--find_single_audio_only', dest='find_single_audio_only', action='store_true', help='filter results that have a single audio stream')
+parser.add_argument('--find_fullscreen', dest='find_fullscreen', action='store_true', help='filter results that are fullscreen aspect ratio')
 
 args = parser.parse_args()
 
@@ -55,6 +64,9 @@ for filename in glob.iglob(args.path + file_mask, recursive=args.recursive):
 
     if pass_filter and args.find_single_audio_only:
         pass_filter = is_single_audio_only(metadata)
+
+    if pass_filter and args.find_fullscreen:
+        pass_filter = is_fullscreen(metadata)
 
     if pass_filter:
         print(filename+" -> "+str(metadata))
