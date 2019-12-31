@@ -18,6 +18,8 @@ The following flags are currently available:
 
 `--find_fullscreen` to locate video files that are in fullscreen (4:3) aspect ratio
 
+`--find_low_bit_rate` to locate video files that are lower bitrate and therefore likely lower quality
+
 Some of these can be used cumulatively; for example you may filter for stereo only
 as well as single audio which should identify videos that only have a single AAC audio
 stream.
