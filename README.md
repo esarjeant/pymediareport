@@ -28,4 +28,6 @@ Note that this currently depends on a fork of ffprobe3 which me be found here:
 
 https://github.com/esarjeant/ffprobe3
  
-You will need to install ffprobe to use this wrapper. 
+You will need to install a forked version of ffprobe3 to use this wrapper:
+
+    pip3 install ffprobe3-esarjeant
